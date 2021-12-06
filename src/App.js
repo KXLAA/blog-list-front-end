@@ -3,6 +3,8 @@ import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import Notification from "./components/Notification";
+import { AddNewBlog } from "./components/AddNewBlog";
+import { Login } from "./components/Login";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -14,7 +16,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [notify, setNotify] = useState(null);
 
   useEffect(() => {
     const getUsrBlogs = async () => {
@@ -46,9 +48,9 @@ const App = () => {
       setUsername("");
       setPassword("");
     } catch (exception) {
-      setErrorMessage("Wrong credentials");
+      setNotify("Wrong credentials");
       setTimeout(() => {
-        setErrorMessage(null);
+        setNotify(null);
       }, 5000);
     }
   };
@@ -79,69 +81,42 @@ const App = () => {
       setBlogs(blogs.concat(returnedBlog));
     });
 
+    setNotify(`a new blog ${newBlog.title} by ${newBlog.author} added`);
+    setTimeout(() => {
+      setNotify(null);
+    }, 5000);
+
     setNewBlog({ title: "", author: "", url: "" });
   };
 
   if (user === null) {
     return (
-      <div>
-        <Notification message={errorMessage} />
-        <h2>Log in to application</h2>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-            <input
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-            password
-            <input
-              type="text"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit">login</button>
-        </form>
-      </div>
+      <>
+        <Notification notification={notify} />
+        <Login
+          handleLogin={handleLogin}
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+        />
+      </>
     );
   }
   return (
     <div>
-      <Notification message={errorMessage} />
+      <Notification notification={notify} />
       <h2>blogs</h2>
       <p>
         {user.username} Logged In{" "}
         <button onClick={handleLogOut}>Log Out</button>
       </p>
 
-      <h1>Create New</h1>
-      <form onSubmit={createBlog}>
-        <input
-          type="text"
-          value={newBlog.title}
-          name="title"
-          onChange={handleNewBlogChange}
-        />
-        <input
-          type="text"
-          value={newBlog.author}
-          name="author"
-          onChange={handleNewBlogChange}
-        />
-        <input
-          type="text"
-          value={newBlog.url}
-          name="url"
-          onChange={handleNewBlogChange}
-        />
-        <button type="submit">Create</button>
-      </form>
+      <AddNewBlog
+        createBlog={createBlog}
+        newBlog={newBlog}
+        handleNewBlogChange={handleNewBlogChange}
+      />
 
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
