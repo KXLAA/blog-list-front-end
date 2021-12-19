@@ -78,9 +78,9 @@ const App = () => {
       url: newBlog.url,
     };
 
-    blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog));
-    });
+    const returnedBlog = await blogService.create(blogObject);
+
+    setBlogs(blogs.concat(returnedBlog));
 
     setNotify(`a new blog ${newBlog.title} by ${newBlog.author} added`);
     setTimeout(() => {
@@ -122,9 +122,18 @@ const App = () => {
         handleNewBlogChange={handleNewBlogChange}
       />
 
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
+      {blogs
+        ?.sort((a, b) => a.likes - b.likes)
+        .reverse()
+        .map((blog) => (
+          <Blog
+            key={blog.id}
+            blog={blog}
+            setBlogs={setBlogs}
+            blogs={blogs}
+            user={user}
+          />
+        ))}
     </div>
   );
 };
