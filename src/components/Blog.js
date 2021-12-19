@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import blogService from "../services/blogs";
+import PropTypes from "prop-types";
+
 const Blog = ({ blog, user }) => {
   const [showDetails, setShowDetails] = useState(false);
-
-  console.log(blog);
 
   const updateBlog = async (event) => {
     event.preventDefault();
@@ -50,3 +50,22 @@ const Blog = ({ blog, user }) => {
 };
 
 export default Blog;
+
+Blog.propTypes = {
+  blog: PropTypes.shape({
+    title: PropTypes.string,
+    author: PropTypes.string,
+    url: PropTypes.string,
+    likes: PropTypes.number,
+    user: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      username: PropTypes.string,
+    }),
+  }).isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    username: PropTypes.string,
+  }).isRequired,
+};
