@@ -20,7 +20,9 @@ const Blog = ({ blog, user }) => {
 
   const deleteBlog = async (event) => {
     event.preventDefault();
-    await blogService.deleteBlog(blog.id);
+    if (window.confirm(`Do you really want to delete ${blog.title}`)) {
+      await blogService.deleteBlog(blog.id);
+    }
   };
 
   return (
