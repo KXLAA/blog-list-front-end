@@ -7,6 +7,7 @@ import { AddNewBlog } from "./components/AddNewBlog";
 import { Login } from "./components/Login";
 
 const App = () => {
+  const [showBlogForm, setShowBlogForm] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [newBlog, setNewBlog] = useState({
     title: "",
@@ -87,6 +88,7 @@ const App = () => {
     }, 5000);
 
     setNewBlog({ title: "", author: "", url: "" });
+    setShowBlogForm(false);
   };
 
   if (user === null) {
@@ -114,6 +116,8 @@ const App = () => {
 
       <AddNewBlog
         createBlog={createBlog}
+        showBlogForm={showBlogForm}
+        setShowBlogForm={setShowBlogForm}
         newBlog={newBlog}
         handleNewBlogChange={handleNewBlogChange}
       />
