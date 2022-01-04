@@ -17,6 +17,7 @@ export const AddNewBlog = ({
         margin: "0 auto",
         paddingBottom: "16px",
       }}
+      className="formDiv"
     >
       <h2
         style={{
@@ -38,6 +39,7 @@ export const AddNewBlog = ({
           <p>Title</p>
           <input
             type="text"
+            id="title"
             value={newBlog.title}
             name="title"
             onChange={handleNewBlogChange}
@@ -45,6 +47,7 @@ export const AddNewBlog = ({
           <p>author</p>
           <input
             type="text"
+            id="author"
             value={newBlog.author}
             name="author"
             onChange={handleNewBlogChange}
@@ -52,6 +55,7 @@ export const AddNewBlog = ({
           <p>Link to Blog</p>
           <input
             type="text"
+            id="link"
             value={newBlog.url}
             name="url"
             onChange={handleNewBlogChange}
