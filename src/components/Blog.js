@@ -2,21 +2,8 @@ import React, { useState } from "react";
 import blogService from "../services/blogs";
 import PropTypes from "prop-types";
 
-const Blog = ({ blog, user }) => {
-  const [showDetails, setShowDetails] = useState(false);
-
-  const updateBlog = async (event) => {
-    event.preventDefault();
-
-    const blogObject = {
-      title: blog.title,
-      author: blog.author,
-      url: blog.url,
-      likes: blog.likes + 1,
-    };
-
-    await blogService.update(blog.id, blogObject);
-  };
+const Blog = ({ blog, user, updateBlog }) => {
+  const [showDetails, setShowDetails] = useState(true);
 
   const deleteBlog = async (event) => {
     event.preventDefault();
@@ -48,9 +35,7 @@ const Blog = ({ blog, user }) => {
       {showDetails && (
         <div>
           <p>{blog.url}</p>
-          <p>
-            {blog.likes} <button onClick={updateBlog}>like</button>
-          </p>
+          {blog.likes} <button onClick={() => updateBlog(blog)}>like</button>
           <p>{blog?.user?.name}</p>
         </div>
       )}

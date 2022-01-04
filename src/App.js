@@ -91,6 +91,17 @@ const App = () => {
     setShowBlogForm(false);
   };
 
+  const updateBlog = async (blog) => {
+    const blogObject = {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+    };
+
+    await blogService.update(blog.id, blogObject);
+  };
+
   if (user === null) {
     return (
       <>
@@ -140,8 +151,8 @@ const App = () => {
             key={blog.id}
             blog={blog}
             setBlogs={setBlogs}
-            blogs={blogs}
             user={user}
+            updateBlog={updateBlog}
           />
         ))}
     </>
