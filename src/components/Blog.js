@@ -26,8 +26,20 @@ const Blog = ({ blog, user }) => {
   };
 
   return (
-    <div>
-      {blog.title} {blog.author}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        padding: "32px",
+        border: "solid black .5px",
+      }}
+      className="blog"
+    >
+      <p>
+        {blog.title} by {blog.author}
+      </p>
+
       {showDetails ? (
         <button onClick={() => setShowDetails(!showDetails)}>hide</button>
       ) : (
@@ -42,7 +54,7 @@ const Blog = ({ blog, user }) => {
           <p>{blog?.user?.name}</p>
         </div>
       )}
-      {user.username === blog.user.username && (
+      {user?.username === blog?.user?.username && (
         <button onClick={deleteBlog}>delete</button>
       )}
     </div>
@@ -67,5 +79,5 @@ Blog.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     username: PropTypes.string,
-  }).isRequired,
+  }),
 };

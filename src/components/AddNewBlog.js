@@ -8,22 +8,48 @@ export const AddNewBlog = ({
   showBlogForm,
 }) => {
   return (
-    <div>
-      <h1>Create New</h1>
+    <div
+      style={{
+        paddingTop: "16px",
+        display: "flex",
+        flexDirection: "column",
+        width: "400px",
+        margin: "0 auto",
+        paddingBottom: "16px",
+      }}
+    >
+      <h2
+        style={{
+          textAlign: "center",
+        }}
+      >
+        Create New
+      </h2>
       {showBlogForm && (
-        <form onSubmit={createBlog}>
+        <form
+          onSubmit={createBlog}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            paddingBottom: "16px",
+          }}
+        >
+          <p>Title</p>
           <input
             type="text"
             value={newBlog.title}
             name="title"
             onChange={handleNewBlogChange}
           />
+          <p>author</p>
           <input
             type="text"
             value={newBlog.author}
             name="author"
             onChange={handleNewBlogChange}
           />
+          <p>Link to Blog</p>
           <input
             type="text"
             value={newBlog.url}

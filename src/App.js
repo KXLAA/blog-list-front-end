@@ -106,13 +106,23 @@ const App = () => {
     );
   }
   return (
-    <div>
+    <>
       <Notification notification={notify} />
-      <h2>blogs</h2>
-      <p>
-        {user.username} Logged In{" "}
+      <h1 style={{ textAlign: "center" }}>BLOGS</h1>
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <p
+          style={{
+            paddingBottom: "8px",
+          }}
+        >
+          {user.username} Logged In{" "}
+        </p>
         <button onClick={handleLogOut}>Log Out</button>
-      </p>
+      </div>
 
       <AddNewBlog
         createBlog={createBlog}
@@ -134,7 +144,7 @@ const App = () => {
             user={user}
           />
         ))}
-    </div>
+    </>
   );
 };
 
