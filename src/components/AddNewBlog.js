@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const AddNewBlog = ({
   createBlog,
@@ -17,7 +18,6 @@ export const AddNewBlog = ({
         margin: "0 auto",
         paddingBottom: "16px",
       }}
-      className="formDiv"
     >
       <h2
         style={{
@@ -28,6 +28,7 @@ export const AddNewBlog = ({
       </h2>
       {showBlogForm && (
         <form
+          data-testid="form"
           onSubmit={createBlog}
           style={{
             display: "flex",
@@ -38,6 +39,7 @@ export const AddNewBlog = ({
         >
           <p>Title</p>
           <input
+            data-testid="title"
             type="text"
             id="title"
             value={newBlog.title}
@@ -47,6 +49,7 @@ export const AddNewBlog = ({
           <p>author</p>
           <input
             type="text"
+            data-testid="author"
             id="author"
             value={newBlog.author}
             name="author"
@@ -55,7 +58,8 @@ export const AddNewBlog = ({
           <p>Link to Blog</p>
           <input
             type="text"
-            id="link"
+            data-testid="url"
+            id="url"
             value={newBlog.url}
             name="url"
             onChange={handleNewBlogChange}
@@ -66,10 +70,21 @@ export const AddNewBlog = ({
       {showBlogForm ? (
         <button onClick={() => setShowBlogForm(!showBlogForm)}>Cancel</button>
       ) : (
-        <button onClick={() => setShowBlogForm(!showBlogForm)}>
+        <button
+          data-testid="create"
+          onClick={() => setShowBlogForm(!showBlogForm)}
+        >
           Create new blog
         </button>
       )}
     </div>
   );
+};
+
+AddNewBlog.propTypes = {
+  createBlog: PropTypes.func.isRequired,
+  newBlog: PropTypes.object.isRequired,
+  handleNewBlogChange: PropTypes.func.isRequired,
+  setShowBlogForm: PropTypes.func.isRequired,
+  showBlogForm: PropTypes.bool.isRequired,
 };

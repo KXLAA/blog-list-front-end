@@ -4,7 +4,7 @@ import { render, fireEvent } from "@testing-library/react";
 import Blog from "./Blog";
 // CI=true npm test
 
-test("renders content", () => {
+test("the blog's title and author is rendered but not the url or number of likes by default", () => {
   const blog = {
     title: "Article",
     author: "John Mapple",

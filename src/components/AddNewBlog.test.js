@@ -1,26 +1,45 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import { fireEvent, screen, render } from "@testing-library/react";
 import { AddNewBlog } from "./AddNewBlog";
 
-test("<AddNewBlog /> updates parent state and calls onSubmit", () => {
-  const createBlog = jest.fn();
+test("form calls the event handler it received as props with the right details when a new blog is created", () => {
+  const fakeData = {
+    title: "test user",
+    author: "123passwrod",
+    url: "testing.com",
+  };
 
-  const component = render(<AddNewBlog createBlog={createBlog} />);
+  render(<AddNewBlog newBlog={fakeData} />);
 
-  const input = component.container.querySelector("input");
-  const form = component.container.querySelector("form");
-  const author = component.container.querySelector("#author");
-  //   const link = component.container.querySelector("#link");
-  //   const title = component.container.querySelector("#title"); CI=true npm test
+  const title = screen.getByTestId("title");
 
-  fireEvent.change(input, {
-    target: { value: "testing of forms could be easier" },
+  const author = screen.getByTestId("author");
+
+  const url = screen.getByTestId("url");
+
+  const create = screen.getByTestId("create");
+
+  fireEvent.change(title, {
+    target: {
+      value: fakeData.title,
+    },
   });
-  fireEvent.submit(form);
+  fireEvent.change(author, {
+    target: {
+      value: fakeData.author,
+    },
+  });
+  fireEvent.change(url, {
+    target: {
+      value: fakeData.url,
+    },
+  });
 
-  expect(createBlog.mock.calls).toHaveLength(1);
-  expect(createBlog.mock.calls[0][0].content).toBe(
-    "testing of forms could be easier"
-  );
+  fireEvent.click(create);
+
+  expect(screen.getByTestId("form")).toHaveFormValues({
+    title: fakeData.title,
+    author: fakeData.author,
+    url: fakeData.url,
+  });
 });
