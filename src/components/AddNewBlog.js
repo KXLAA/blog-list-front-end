@@ -64,7 +64,7 @@ export const AddNewBlog = ({
             name="url"
             onChange={handleNewBlogChange}
           />
-          <button type="submit" data-testid="create">
+          <button type="submit" data-testid="create" id="create">
             Create
           </button>
         </form>
@@ -76,7 +76,7 @@ export const AddNewBlog = ({
           data-testid="create"
           onClick={() => setShowBlogForm(!showBlogForm)}
         >
-          Create new blog
+          create new blog
         </button>
       )}
     </div>

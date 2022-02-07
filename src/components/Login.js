@@ -17,6 +17,7 @@ export const Login = ({
         >
           <p style={{ fontWeight: "bold" }}>Username</p>
           <input
+            id="username"
             type="text"
             value={username}
             name="Username"
@@ -25,13 +26,16 @@ export const Login = ({
 
           <p style={{ fontWeight: "bold" }}>Password</p>
           <input
+            id="password"
             type="Password"
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
           />
 
-          <button type="submit">LOG IN</button>
+          <button type="submit" id="login-button">
+            LOG IN
+          </button>
         </form>
       </div>
     </div>
