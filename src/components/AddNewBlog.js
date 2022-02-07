@@ -64,7 +64,9 @@ export const AddNewBlog = ({
             name="url"
             onChange={handleNewBlogChange}
           />
-          <button type="submit">Create</button>
+          <button type="submit" data-testid="create">
+            Create
+          </button>
         </form>
       )}
       {showBlogForm ? (

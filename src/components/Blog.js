@@ -3,7 +3,7 @@ import blogService from "../services/blogs";
 import PropTypes from "prop-types";
 
 const Blog = ({ blog, user, updateBlog }) => {
-  const [showDetails, setShowDetails] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
 
   const deleteBlog = async (event) => {
     event.preventDefault();
@@ -30,10 +30,12 @@ const Blog = ({ blog, user, updateBlog }) => {
       {showDetails ? (
         <button onClick={() => setShowDetails(!showDetails)}>hide</button>
       ) : (
-        <button onClick={() => setShowDetails(!showDetails)}>view</button>
+        <button className="button" onClick={() => setShowDetails(!showDetails)}>
+          view
+        </button>
       )}
       {showDetails && (
-        <div>
+        <div data-testid="togglableContent">
           <p>{blog.url}</p>
           {blog.likes} <button onClick={() => updateBlog(blog)}>like</button>
           <p>{blog?.user?.name}</p>

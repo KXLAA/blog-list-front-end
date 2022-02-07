@@ -1,5 +1,7 @@
 import React from "react";
-import { fireEvent, screen, render } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import { render, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { AddNewBlog } from "./AddNewBlog";
 
 test("form calls the event handler it received as props with the right details when a new blog is created", () => {
@@ -9,14 +11,19 @@ test("form calls the event handler it received as props with the right details w
     url: "testing.com",
   };
 
-  render(<AddNewBlog newBlog={fakeData} />);
+  render(
+    <AddNewBlog
+      newBlog={fakeData}
+      createBlog={console.log}
+      handleNewBlogChange={console.log}
+      setShowBlogForm={console.log}
+      showBlogForm={true}
+    />
+  );
 
   const title = screen.getByTestId("title");
-
   const author = screen.getByTestId("author");
-
   const url = screen.getByTestId("url");
-
   const create = screen.getByTestId("create");
 
   fireEvent.change(title, {
@@ -35,7 +42,7 @@ test("form calls the event handler it received as props with the right details w
     },
   });
 
-  fireEvent.click(create);
+  fireEvent.submit(create);
 
   expect(screen.getByTestId("form")).toHaveFormValues({
     title: fakeData.title,
