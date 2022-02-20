@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Users = () => {
-  const user = useSelector((state) => state.users);
-  console.log(user);
+  const users = useSelector((state) => state.users);
   return (
     <div>
       <h1>Users</h1>
-      {user.map(({ username, blogs }) => (
-        <div key={username} style={{ display: "flex", gap: "2rem" }}>
-          <p>{username}</p>
+      {users.map(({ username, blogs, id }) => (
+        <div key={id} style={{ display: "flex", gap: "2rem" }}>
+          <Link to={`/user/${id}`}>
+            <p>{username}</p>
+          </Link>
           <p>{blogs.length} blogs created</p>
         </div>
       ))}

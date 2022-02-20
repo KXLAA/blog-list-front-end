@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
 import { initializeBlogs } from "./reducers/blogsReducer";
 import { initializeUsers } from "./reducers/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
-import BlogList from "./components/BlogList";
 import { initializeAuthUser } from "./reducers/authReducer";
 import Notification from "./components/Notification";
-import { AddNewBlog } from "./components/AddNewBlog";
 import { Login } from "./components/Login";
 import Header from "./components/Header";
-import Users from "./components/Users";
+import User from "./components/User";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,9 +33,10 @@ const App = () => {
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       <Notification />
       <Header />
-      <AddNewBlog />
-      <BlogList />
-      <Users />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/user/:id" element={<User />} />
+      </Routes>
     </div>
   );
 };

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { createBlog } from "../reducers/blogsReducer";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
-import PropTypes from "prop-types";
 
-export const AddNewBlog = () => {
+const AddNewBlog = () => {
   const dispatch = useDispatch();
   const [newBlog, setNewBlog] = useState({
     title: "",
@@ -108,10 +107,4 @@ export const AddNewBlog = () => {
   );
 };
 
-AddNewBlog.propTypes = {
-  createBlog: PropTypes.func.isRequired,
-  newBlog: PropTypes.object.isRequired,
-  handleNewBlogChange: PropTypes.func.isRequired,
-  setShowBlogForm: PropTypes.func.isRequired,
-  showBlogForm: PropTypes.bool.isRequired,
-};
+export default AddNewBlog;
