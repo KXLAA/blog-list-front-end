@@ -54,17 +54,6 @@ const App = () => {
     window.location.reload();
   };
 
-  // const updateBlog = async (blog) => {
-  //   const blogObject = {
-  //     title: blog.title,
-  //     author: blog.author,
-  //     url: blog.url,
-  //     likes: blog.likes + 1,
-  //   };
-
-  //   await blogService.update(blog.id, blogObject);
-  // };
-
   if (user === null) {
     return (
       <>
@@ -99,21 +88,7 @@ const App = () => {
       </div>
 
       <AddNewBlog />
-
       <BlogList />
-
-      {/* {blogs
-        ?.sort((a, b) => a.likes - b.likes)
-        .reverse()
-        .map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            setBlogs={setBlogs}
-            user={user}
-            updateBlog={updateBlog}
-          />
-        ))} */}
     </>
   );
 };
