@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { like } from "../reducers/blogsReducer";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeBlog } from "../reducers/blogsReducer";
 import PropTypes from "prop-types";
@@ -32,17 +32,9 @@ const Blog = ({ blog, authUser }) => {
       {showDetails ? (
         <button onClick={() => setShowDetails(!showDetails)}>hide</button>
       ) : (
-        <button className="button" onClick={() => setShowDetails(!showDetails)}>
-          view
-        </button>
-      )}
-      {showDetails && (
-        <div data-testid="togglableContent">
-          <p>{blog.url}</p>
-          {blog.likes}
-          <button onClick={() => dispatch(like(blog.id))}>like</button>
-          <p>{blog?.user?.name}</p>
-        </div>
+        <Link to={`/blog/${blog.id}`}>
+          <button className="button">view</button>
+        </Link>
       )}
       {authUser?.username === blog?.user?.username && (
         <button onClick={deleteBlog}>delete</button>

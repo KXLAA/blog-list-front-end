@@ -10,6 +10,7 @@ import Notification from "./components/Notification";
 import { Login } from "./components/Login";
 import Header from "./components/Header";
 import User from "./components/User";
+import SingleBlog from "./components/SingleBlog";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user/:id" element={<User />} />
+        <Route path="/blog/:blogId" element={<SingleBlog />} />
       </Routes>
     </div>
   );
