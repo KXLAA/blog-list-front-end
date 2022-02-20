@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { createBlog } from "../reducers/blogsReducer";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../reducers/notificationReducer";
 import PropTypes from "prop-types";
 
-export const AddNewBlog = ({
-  createBlog,
-  newBlog,
-  handleNewBlogChange,
-  setShowBlogForm,
-  showBlogForm,
-}) => {
+export const AddNewBlog = () => {
+  const dispatch = useDispatch();
+  const [newBlog, setNewBlog] = useState({
+    title: "",
+    author: "",
+    url: "",
+  });
+  const [showBlogForm, setShowBlogForm] = useState(false);
+
+  const handleNewBlogChange = ({ target }) => {
+    setNewBlog((prevInputData) => ({
+      ...prevInputData,
+      [target.name]: target.value,
+    }));
+  };
+
+  const addBlog = async (event) => {
+    event.preventDefault();
+    dispatch(createBlog(newBlog));
+    dispatch(
+      setNotification(
+        `a new blog ${newBlog.title} by ${newBlog.author} added`,
+        5000
+      )
+    );
+    setNewBlog({ title: "", author: "", url: "" });
+    setShowBlogForm(false);
+  };
+
   return (
     <div
       style={{
@@ -29,7 +54,7 @@ export const AddNewBlog = ({
       {showBlogForm && (
         <form
           data-testid="form"
-          onSubmit={createBlog}
+          onSubmit={addBlog}
           style={{
             display: "flex",
             flexDirection: "column",

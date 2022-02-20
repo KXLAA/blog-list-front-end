@@ -10,29 +10,15 @@ import { Login } from "./components/Login";
 
 const App = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(initializeBlogs());
   }, [dispatch]);
 
-  const [showBlogForm, setShowBlogForm] = useState(false);
-  const [blogs, setBlogs] = useState([]);
-  const [newBlog, setNewBlog] = useState({
-    title: "",
-    author: "",
-    url: "",
-  });
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [notify, setNotify] = useState(null);
-
-  useEffect(() => {
-    const getUsrBlogs = async () => {
-      const userBlogs = await blogService.getAll();
-      setBlogs(userBlogs);
-    };
-    getUsrBlogs();
-  }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogAppUser");
@@ -68,36 +54,6 @@ const App = () => {
     window.location.reload();
   };
 
-  const handleNewBlogChange = ({ target }) => {
-    setNewBlog((prevInputData) => ({
-      ...prevInputData,
-      [target.name]: target.value,
-    }));
-    console.log(newBlog);
-  };
-
-  const createBlog = async (event) => {
-    event.preventDefault();
-
-    const blogObject = {
-      title: newBlog.title,
-      author: newBlog.author,
-      url: newBlog.url,
-    };
-
-    const returnedBlog = await blogService.create(blogObject);
-
-    setBlogs(blogs.concat(returnedBlog));
-
-    setNotify(`a new blog ${newBlog.title} by ${newBlog.author} added`);
-    setTimeout(() => {
-      setNotify(null);
-    }, 5000);
-
-    setNewBlog({ title: "", author: "", url: "" });
-    setShowBlogForm(false);
-  };
-
   // const updateBlog = async (blog) => {
   //   const blogObject = {
   //     title: blog.title,
@@ -125,7 +81,7 @@ const App = () => {
   }
   return (
     <>
-      <Notification notification={notify} />
+      <Notification />
       <h1 style={{ textAlign: "center" }}>BLOGS</h1>
       <div
         style={{
@@ -142,13 +98,7 @@ const App = () => {
         <button onClick={handleLogOut}>Log Out</button>
       </div>
 
-      <AddNewBlog
-        createBlog={createBlog}
-        showBlogForm={showBlogForm}
-        setShowBlogForm={setShowBlogForm}
-        newBlog={newBlog}
-        handleNewBlogChange={handleNewBlogChange}
-      />
+      <AddNewBlog />
 
       <BlogList />
 
