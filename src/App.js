@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Blog from "./components/Blog";
+import { initializeBlogs } from "./reducers/blogsReducer";
+import { useDispatch } from "react-redux";
+import BlogList from "./components/BlogList";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import Notification from "./components/Notification";
@@ -7,6 +9,11 @@ import { AddNewBlog } from "./components/AddNewBlog";
 import { Login } from "./components/Login";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(initializeBlogs());
+  }, [dispatch]);
+
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [newBlog, setNewBlog] = useState({
@@ -91,16 +98,16 @@ const App = () => {
     setShowBlogForm(false);
   };
 
-  const updateBlog = async (blog) => {
-    const blogObject = {
-      title: blog.title,
-      author: blog.author,
-      url: blog.url,
-      likes: blog.likes + 1,
-    };
+  // const updateBlog = async (blog) => {
+  //   const blogObject = {
+  //     title: blog.title,
+  //     author: blog.author,
+  //     url: blog.url,
+  //     likes: blog.likes + 1,
+  //   };
 
-    await blogService.update(blog.id, blogObject);
-  };
+  //   await blogService.update(blog.id, blogObject);
+  // };
 
   if (user === null) {
     return (
@@ -143,7 +150,9 @@ const App = () => {
         handleNewBlogChange={handleNewBlogChange}
       />
 
-      {blogs
+      <BlogList />
+
+      {/* {blogs
         ?.sort((a, b) => a.likes - b.likes)
         .reverse()
         .map((blog) => (
@@ -154,7 +163,7 @@ const App = () => {
             user={user}
             updateBlog={updateBlog}
           />
-        ))}
+        ))} */}
     </>
   );
 };
