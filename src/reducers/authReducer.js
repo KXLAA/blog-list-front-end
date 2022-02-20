@@ -2,24 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
 
-const userSlice = createSlice({
-  name: "user",
+const authSlice = createSlice({
+  name: "auth",
   initialState: null,
   reducers: {
-    setUser(state, action) {
+    setAuthUser(state, action) {
       return action.payload;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setAuthUser } = authSlice.actions;
 
-export const initializeUser = () => {
+export const initializeAuthUser = () => {
   return async (dispatch) => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogAppUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      dispatch(setUser(user));
+      dispatch(setAuthUser(user));
       blogService.setToken(user.token);
     }
   };
@@ -28,7 +28,7 @@ export const initializeUser = () => {
 export const login = (credentials) => {
   return async (dispatch) => {
     const user = await loginService.login(credentials);
-    dispatch(setUser(user));
+    dispatch(setAuthUser(user));
     blogService.setToken(user.token);
     window.localStorage.setItem("loggedBlogAppUser", JSON.stringify(user));
     window.location.reload();
@@ -39,8 +39,8 @@ export const logOut = () => {
   return async (dispatch) => {
     window.localStorage.removeItem("loggedBlogAppUser");
     window.location.reload();
-    dispatch(setUser(null));
+    dispatch(setAuthUser(null));
   };
 };
 
-export default userSlice.reducer;
+export default authSlice.reducer;

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { login } from "../reducers/userReducer";
+import { login } from "../reducers/authReducer";
 import { useDispatch } from "react-redux";
 
 export const Login = () => {
