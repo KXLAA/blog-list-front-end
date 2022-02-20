@@ -1,12 +1,27 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { login } from "../reducers/userReducer";
+import { useDispatch } from "react-redux";
 
-export const Login = ({
-  handleLogin,
-  username,
-  setUsername,
-  setPassword,
-  password,
-}) => {
+export const Login = () => {
+  const dispatch = useDispatch();
+  const [userLogIn, setUserLogIn] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleLogInChange = ({ target }) => {
+    setUserLogIn((prevInputData) => ({
+      ...prevInputData,
+      [target.name]: target.value,
+    }));
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    dispatch(login(userLogIn));
+  };
+
   return (
     <div>
       <div>
@@ -19,18 +34,18 @@ export const Login = ({
           <input
             id="username"
             type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
+            value={userLogIn.username}
+            name="username"
+            onChange={handleLogInChange}
           />
 
           <p style={{ fontWeight: "bold" }}>Password</p>
           <input
             id="password"
             type="Password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
+            value={userLogIn.password}
+            name="password"
+            onChange={handleLogInChange}
           />
 
           <button type="submit" id="login-button">

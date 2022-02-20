@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { removeBlog } from "../reducers/blogsReducer";
 import PropTypes from "prop-types";
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, user }) => {
   const dispatch = useDispatch();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -29,7 +29,6 @@ const Blog = ({ blog }) => {
       <p>
         {blog.title} by {blog.author}
       </p>
-
       {showDetails ? (
         <button onClick={() => setShowDetails(!showDetails)}>hide</button>
       ) : (
@@ -45,7 +44,9 @@ const Blog = ({ blog }) => {
           <p>{blog?.user?.name}</p>
         </div>
       )}
-      <button onClick={deleteBlog}>delete</button>
+      {user?.username === blog?.user?.username && (
+        <button onClick={deleteBlog}>delete</button>
+      )}
     </div>
   );
 };

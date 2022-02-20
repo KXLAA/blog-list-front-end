@@ -5,11 +5,13 @@ import Blog from "./Blog";
 
 const BlogList = () => {
   const blogs = useSelector((state) => state.blogs);
+  const user = useSelector((state) => state.user);
+
   return (
     <>
       {" "}
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} user={user} />
       ))}
     </>
   );
