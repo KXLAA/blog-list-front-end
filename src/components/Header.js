@@ -1,9 +1,7 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../reducers/authReducer";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
 
   return (
@@ -22,7 +20,6 @@ const Header = () => {
         >
           {user.username} Logged In{" "}
         </p>
-        <button onClick={() => dispatch(logOut())}>Log Out</button>
       </div>
     </div>
   );
